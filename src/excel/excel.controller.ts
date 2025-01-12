@@ -1,4 +1,4 @@
-import { Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Logger, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ExcelService } from './excel.service';
 
@@ -9,6 +9,7 @@ export class UploadController {
   @Post('excel')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    Logger.log("receive request")
     return this.excelService.processExcel(file);
   }
 

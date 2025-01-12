@@ -4,7 +4,15 @@ import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
-  Logger.log('App listening on port 3000');
+
+  // Enable CORS before starting the server
+  app.enableCors({
+    origin: 'http://localhost:3000', // Frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+  });
+
+  await app.listen(4000);
+  Logger.log('App listening on port 4000');
 }
 bootstrap();

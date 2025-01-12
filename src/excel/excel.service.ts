@@ -1,5 +1,5 @@
 
-import { Injectable, Logger } from '@nestjs/common';
+import { BadGatewayException, BadRequestException, Injectable, Logger } from '@nestjs/common';
 import * as XLSX from 'xlsx';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -44,6 +44,10 @@ export class ExcelService {
   
     if (validData.length <= 0) {
       throw new Error('No valid data found in the Excel file.');
+    }
+
+    if(!file){
+      throw BadRequestException
     }
   
     // Delete old entries with fileId 'fileD' before inserting
